@@ -9,4 +9,9 @@ public abstract class Tile : MonoBehaviour
 
     public int x;
     public int y;
+
+    public void Initialize()
+    {
+        BoardManager.GetInstance.InsertTile(this);
+    }
 }
