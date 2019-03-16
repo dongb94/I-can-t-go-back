@@ -4,11 +4,13 @@ using UnityEngine.Serialization;
 
 public abstract class Tile : MonoBehaviour
 {
+    [FormerlySerializedAs("TileSprite")] public Sprite tileSprite;
+    
     [FormerlySerializedAs("Color")] public TileColor color;
     [FormerlySerializedAs("Shape")] public TileShape shape;
 
-    public int x;
-    public int y;
+    private int x;
+    private int y;
 
     public enum TileColor
     {
@@ -41,9 +43,16 @@ public abstract class Tile : MonoBehaviour
         HollowLowerRightTriangle = LowerRightTriangle | IsHollow,
         HollowLowerLeftTriangle = LowerLeftTriangle | IsHollow,
     }
-    
+
+    public void OnPooled()
+    {
+        transform.position = Vector3.forward * 20; 
+    }
+
     public void Initialize()
     {
         BoardManager.GetInstance.InsertTile(this);
     }
+
+    public abstract void TileEffect(int direction);
 }

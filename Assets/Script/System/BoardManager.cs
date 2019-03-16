@@ -8,8 +8,6 @@ public class BoardManager : Singleton<BoardManager>
     public int BoardWight;
 
     public int[][] Board;
-
-    public object[] TileSet;
     
     protected override void Initialize()
     {
