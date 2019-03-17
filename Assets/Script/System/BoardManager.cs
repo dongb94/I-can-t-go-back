@@ -7,16 +7,16 @@ public class BoardManager : Singleton<BoardManager>
     public int BoardHeight;
     public int BoardWight;
 
-    public int[][] Board;
+    public Tile[][] Board;
     
     protected override void Initialize()
     {
         base.Initialize();
         
-        Board = new int[BoardWight][];
+        Board = new Tile[BoardWight][];
         for (var i = 0; i < BoardWight; i++)
         {
-            Board[i] = new int[BoardHeight];
+            Board[i] = new Tile[BoardHeight];
         }
     }
     
@@ -43,7 +43,9 @@ public class BoardManager : Singleton<BoardManager>
 
     public void InsertTile(Tile tile)
     {
-        Board[tile.x][tile.y] = (int)tile.color | (int)tile.shape;
+        if(Board[tile.x][tile.y] != null)
+            TileManager.GetInstance.PoolTile(Board[tile.x][tile.y]);
+        Board[tile.x][tile.y] = tile;
+        tile.transform.position = ChangeGridToPosition(tile.x, tile.y);
     }
-
 }
