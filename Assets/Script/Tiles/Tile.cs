@@ -9,9 +9,11 @@ public abstract class Tile : MonoBehaviour
     [FormerlySerializedAs("Color")] public TileColor color;
     [FormerlySerializedAs("Shape")] public TileShape shape;
 
-    private int x;
-    private int y;
+    public int x;
+    public int y;
 
+    private static readonly Vector3 PooledPosition = new Vector3(0,0,-20);
+    
     public enum TileColor
     {
         None = 1 << 10,
@@ -41,14 +43,15 @@ public abstract class Tile : MonoBehaviour
         
         Goal,
     }
+    
     public void OnPooled()
     {
-        transform.position = Vector3.forward * 20; 
+        transform.position = PooledPosition;
     }
 
-    public void Initialize()
+    public void OnPooling()
     {
-        BoardManager.GetInstance.InsertTile(this);
+        
     }
 
     public abstract void TileEffect(int direction);
