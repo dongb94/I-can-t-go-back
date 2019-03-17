@@ -22,28 +22,25 @@ public abstract class Tile : MonoBehaviour
 
     public enum TileShape
     {
-        Square = 1 << 1, 
+        Square, 
         
-        UpperRightTriangle = 1 << 2, // ┐
-        UpperLeftTriangle = 1 << 3, // ┌
-        LowerRightTriangle = 1 << 4, // ┘
-        LowerLeftTriangle = 1 << 5, // └
+        UpperRightTriangle, // ┐
+        UpperLeftTriangle, // ┌
+        LowerRightTriangle, // ┘
+        LowerLeftTriangle, // └
         
-        Hole = 1 << 6,
-        Laser = 1 << 7,
+        HollowSquare,
         
-        Goal = 1 << 8,
+        HollowUpperRightTriangle,
+        HollowUpperLeftTriangle,
+        HollowLowerRightTriangle,
+        HollowLowerLeftTriangle,
         
-        IsHollow = 1 << 9,
+        Hole,
+        Laser,
         
-        HollowSquare = Square | IsHollow,
-        
-        HollowUpperRightTriangle = UpperRightTriangle | IsHollow,
-        HollowUpperLeftTriangle = UpperLeftTriangle | IsHollow,
-        HollowLowerRightTriangle = LowerRightTriangle | IsHollow,
-        HollowLowerLeftTriangle = LowerLeftTriangle | IsHollow,
+        Goal,
     }
-
     public void OnPooled()
     {
         transform.position = Vector3.forward * 20; 
