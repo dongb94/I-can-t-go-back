@@ -8,11 +8,17 @@ public class TileManager : Singleton<TileManager>
 
     private const int InitializedPoolSize = 10;
 
-    private Queue<Tile> _tilePool;
+    private List<Queue<Tile>> _tilePool;
+    
     
     protected override void Initialize()
     {
         base.Initialize();
+
+        for (var i = 0; i < TileSet.Length; i++)
+        {
+            _tilePool.Add(new Queue<Tile>());            
+        }
     }
 
     public int InitializePool()
@@ -23,7 +29,7 @@ public class TileManager : Singleton<TileManager>
             {
                 var tile = GameObject.Instantiate(TileSet[j], BoardManager.GetInstance.transform, true);
                 tile.OnPooled();
-                _tilePool.Enqueue(tile);
+                _tilePool[j].Enqueue(tile);
             }
         }
 
