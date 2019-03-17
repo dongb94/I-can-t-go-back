@@ -35,6 +35,34 @@ public class TileManager : Singleton<TileManager>
 
         return InitializedPoolSize;
     }
-    
-    
+
+    public Tile MakeTile(int x, int y, Tile.TileShape shape)
+    {
+        if (BoardManager.GetInstance.BoardWight <= x || x < 0) return null;
+        if (BoardManager.GetInstance.BoardHeight <= y || y < 0) return null;
+        
+        var pool = _tilePool[(int) shape];
+        Tile tile;
+        if (pool.Count != 0)
+        {
+            tile = pool.Dequeue();
+        }
+        else
+        {
+            tile = GameObject.Instantiate(TileSet[(int)shape], BoardManager.GetInstance.transform, true);
+        }
+
+        tile.x = x;
+        tile.y = y;
+        
+        BoardManager.GetInstance.InsertTile(tile);
+
+        return tile;
+    }
+
+    public void PoolTile(Tile tile)
+    {
+        tile.OnPooled();
+        _tilePool[(int)tile.shape].Enqueue(tile);
+    }
 }
