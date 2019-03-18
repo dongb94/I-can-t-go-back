@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : Singleton<PlayerMove>
 {
 
     private bool _isHandle;
     private float _speed;
+
+    private int x, y;
 
     private enum Axis
     {
@@ -21,8 +23,9 @@ public class PlayerMove : MonoBehaviour
     {
         _isHandle = false;
         _speed = 0.5f;
+        x = -99;
+        y = -99;
     }
-
     private void Update()
     {
         if (_isHandle) return;
@@ -33,6 +36,18 @@ public class PlayerMove : MonoBehaviour
         if (horizontal != 0) transform.position += Vector3.right * horizontal;
         if (vertical != 0) transform.position += Vector3.up * vertical;
     }
+
+    public void InitializePosition(int x, int y)
+    {
+        transform.position = BoardManager.GetInstance.ChangeGridToPosition(x, y);
+    }
+
+    #region <Properties>
+
+    public int X => x;
+    public int Y => y;
+    
+    #endregion
 
     private void Move(Axis axis)
     {
