@@ -32,7 +32,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
     public void InitializePosition(int x, int y)
     {
-        transform.position = BoardManager.GetInstance.ChangeGridToPosition(x, y);
+        UpdatePosition(x, y);
     }
 
     #region <Properties>
@@ -42,22 +42,58 @@ public class PlayerManager : Singleton<PlayerManager>
     
     #endregion
 
+    private void UpdatePosition(int x, int y)
+    {
+        transform.position = BoardManager.GetInstance.ChangeGridToPosition(x, y);
+        this.x = x;
+        this.y = y;
+    }
+    
     private void Move(Axis axis)
     {
         _isHandle = true;
+
+        var moveX = 0;
+        var moveY = 0;
+        
         switch (axis)
         {
             case Axis.Right:
-                transform.position += Vector3.right * _speed;
+                moveX = 1;
                 break;
             case Axis.Left:
+                moveX = -1;
                 break;
-            case Axis.Up:
+            case Axis.Top:
+                moveY = 1;
                 break;
-            case Axis.Down:
+            case Axis.Bottom:
+                moveY = -1;
                 break;
             default:
                 throw new ArgumentOutOfRangeException("axis", axis, null);
         }
+
+        if (!BoardManager.GetInstance.CheckIsEmptyDirection(axis))
+        {
+            BoardManager.GetInstance.CallEvent(X+moveX, Y+moveY, axis);
+            _isHandle = false;
+            return;
+        }
+
+        var currentPosition = transform.position;
+        
+        var moveCoroutine = CoroutineFactory.GetInstance.CreateCoroutine(1 / _speed);
+        moveCoroutine.SetAction(() =>
+            {
+                var destination = BoardManager.GetInstance.ChangeGridToPosition(X + moveX, Y + moveY);
+                PlayerManager.GetInstance.transform.position = moveCoroutine.Change(currentPosition, destination);
+            })
+            .SetExitAction(() =>
+            {
+                UpdatePosition(X+moveX, Y+moveY);
+            })
+            .SetTrigger();
+
     }
 }
