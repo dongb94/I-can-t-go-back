@@ -54,6 +54,23 @@ public class BoardManager : Singleton<BoardManager>
         tile.transform.position = ChangeGridToPosition(tile.x, tile.y);
     }
 
+    public bool CheckIsEmptyDirection(Axis axis)
+    {
+        switch (axis)
+        {
+            case Axis.Right:
+                return IsRightEmpty;
+            case Axis.Left:
+                return IsLeftEmpty;
+            case Axis.Top:
+                return IsTopEmpty;
+            case Axis.Bottom:
+                return IsBottomEmpty;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(axis), axis, null);
+        }
+    }
+
     /// <summary>
     /// Call collided Tile Event. 
     /// if (x,y) out of board, there are no effect
