@@ -10,14 +10,7 @@ public class PlayerManager : Singleton<PlayerManager>
     private float _speed; //  tile/s
 
     private int x, y;
-
-    private enum Axis
-    {
-        Right,
-        Left,
-        Up,
-        Down
-    }
+    
     
     private void Awake()
     {
