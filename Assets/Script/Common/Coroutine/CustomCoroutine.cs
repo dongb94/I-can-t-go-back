@@ -57,25 +57,33 @@ public class CustomCoroutine : MonoBehaviour
         _coroutineAction = action;
     }
 
-    public void SetTrigger()
+    public CustomCoroutine SetTrigger()
     {
         _isOnCoroutine = true;
         _startAction?.Invoke();
+
+        return this;
     }
 
-    public void SetAction(Action action)
+    public CustomCoroutine SetAction(Action action)
     {
         _coroutineAction = action;
+        
+        return this;
     }
     
-    public void SetStartAction(Action action)
+    public CustomCoroutine SetStartAction(Action action)
     {
         _startAction = action;
+        
+        return this;
     }
     
-    public void SetExitAction(Action action)
+    public CustomCoroutine SetExitAction(Action action)
     {
         _exitAction = action;
+        
+        return this;
     }
 
     public float Change(float start, float end)
