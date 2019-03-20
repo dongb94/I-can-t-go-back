@@ -58,10 +58,10 @@ public class BoardManager : Singleton<BoardManager>
     /// Call collided Tile Event. 
     /// if (x,y) out of board, there are no effect
     /// </summary>
-    /// <param name="x"></param>
-    /// <param name="y"></param>
-    /// <param name="direction">0 = East , 1 = South , 2 = West , 3= North</param>
-    public void CallEvent(int x, int y, int direction)
+    /// <param name="x">tile X</param>
+    /// <param name="y">tile Y</param>
+    /// <param name="axis">player position by tile</param>
+    public void CallEvent(int x, int y, Axis axis)
     {
         //
     }

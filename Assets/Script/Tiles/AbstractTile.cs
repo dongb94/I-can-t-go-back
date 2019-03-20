@@ -54,5 +54,5 @@ public abstract class Tile : MonoBehaviour
         
     }
 
-    public abstract void TileEffect(int direction);
+    public abstract void TileEffect(Axis axis);
 }
