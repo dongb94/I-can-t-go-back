@@ -3,11 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : Singleton<PlayerMove>
+public class PlayerManager : Singleton<PlayerManager>
 {
 
     private bool _isHandle;
-    private float _speed;
+    private float _speed; //  tile/s
 
     private int x, y;
 
