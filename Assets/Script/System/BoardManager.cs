@@ -1,3 +1,5 @@
+
+using System;
 using UnityEngine;
 
 public class BoardManager : Singleton<BoardManager>
@@ -22,7 +24,10 @@ public class BoardManager : Singleton<BoardManager>
     
     #region <Properties>
 
-    private bool IsRightEmpty => PlayerMove.GetInstance.X + 1 != BoardWight && Board[PlayerMove.GetInstance.X+1][PlayerMove.GetInstance.Y]==null;
+    public bool IsRightEmpty => PlayerManager.GetInstance.X + 1 < BoardWight && Board[PlayerManager.GetInstance.X+1][PlayerManager.GetInstance.Y]==null;
+    public bool IsLeftEmpty => PlayerManager.GetInstance.X > 0 && Board[PlayerManager.GetInstance.X-1][PlayerManager.GetInstance.Y]==null;
+    public bool IsTopEmpty => PlayerManager.GetInstance.Y + 1 < BoardHeight && Board[PlayerManager.GetInstance.X][PlayerManager.GetInstance.Y+1]==null;
+    public bool IsBottomEmpty => PlayerManager.GetInstance.Y > 0 && Board[PlayerManager.GetInstance.X][PlayerManager.GetInstance.Y-1]==null;
 
     #endregion
 
