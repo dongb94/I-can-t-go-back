@@ -18,6 +18,11 @@ public class CustomCoroutine : MonoBehaviour
     private Action<CoroutineEventArgs> _startAction;
     private Action<CoroutineEventArgs> _exitAction;
 
+    private void Awake()
+    {
+        EventArgs = new CoroutineEventArgs();
+    }
+
     private void Update()
     {
         if (!_isOnCoroutine) return;
@@ -50,7 +55,6 @@ public class CustomCoroutine : MonoBehaviour
         _coroutineAction = null;
         _startAction = null;
         _exitAction = null;
-        EventArgs = new CoroutineEventArgs();
         EventArgs.thisCoroutine = this;
     }
 

@@ -77,9 +77,9 @@ public class BoardManager : Singleton<BoardManager>
     /// </summary>
     /// <param name="x">tile X</param>
     /// <param name="y">tile Y</param>
-    /// <param name="axis">player position by tile</param>
+    /// <param name="axis">tile position by player</param>
     public void CallEvent(int x, int y, Axis axis)
     {
-        //
+        Board[x][y].TileEffect(axis);
     }
 }
