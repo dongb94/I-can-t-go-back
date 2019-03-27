@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class CustomCoroutine : MonoBehaviour
 {
+    [NonSerialized]public CommonEventArgs EventArgs;
+    
     private bool _isOnCoroutine;
     
     private float _operatingTime;
@@ -12,9 +14,9 @@ public class CustomCoroutine : MonoBehaviour
     private float _delayTime;
     private float _afterLastUpdateTime;
 
-    private Action _coroutineAction;
-    private Action _startAction;
-    private Action _exitAction;
+    private Action<CommonEventArgs> _coroutineAction;
+    private Action<CommonEventArgs> _startAction;
+    private Action<CommonEventArgs> _exitAction;
 
     private void Update()
     {
@@ -26,13 +28,13 @@ public class CustomCoroutine : MonoBehaviour
 
         if (_afterLastUpdateTime >= _delayTime)
         {
-            _coroutineAction?.Invoke();
+            _coroutineAction?.Invoke(EventArgs);
             _afterLastUpdateTime = 0;
         }
 
         if (_operatingTime <= _elapsedTime)
         {
-            _exitAction?.Invoke();
+            _exitAction?.Invoke(EventArgs);
             _isOnCoroutine = false;
             CoroutineFactory.GetInstance.PoolCoroutine(this);
             _coroutineAction = null;
@@ -50,7 +52,7 @@ public class CustomCoroutine : MonoBehaviour
         _exitAction = null;
     }
 
-    public void SetCoroutine(Action action, float operatingTime, float delayTime)
+    public void SetCoroutine(Action<CommonEventArgs> action, float operatingTime, float delayTime)
     {
         _operatingTime = operatingTime;
         _delayTime = delayTime;
@@ -60,26 +62,26 @@ public class CustomCoroutine : MonoBehaviour
     public CustomCoroutine SetTrigger()
     {
         _isOnCoroutine = true;
-        _startAction?.Invoke();
+        _startAction?.Invoke(EventArgs);
 
         return this;
     }
 
-    public CustomCoroutine SetAction(Action action)
+    public CustomCoroutine SetAction(Action<CommonEventArgs> action)
     {
         _coroutineAction = action;
         
         return this;
     }
     
-    public CustomCoroutine SetStartAction(Action action)
+    public CustomCoroutine SetStartAction(Action<CommonEventArgs> action)
     {
         _startAction = action;
         
         return this;
     }
     
-    public CustomCoroutine SetExitAction(Action action)
+    public CustomCoroutine SetExitAction(Action<CommonEventArgs> action)
     {
         _exitAction = action;
         

@@ -84,12 +84,12 @@ public class PlayerManager : Singleton<PlayerManager>
         var currentPosition = transform.position;
         
         var moveCoroutine = CoroutineFactory.GetInstance.CreateCoroutine(1 / _speed);
-        moveCoroutine.SetAction(() =>
+        moveCoroutine.SetAction((args) =>
             {
                 var destination = BoardManager.GetInstance.ChangeGridToPosition(X + moveX, Y + moveY);
                 PlayerManager.GetInstance.transform.position = moveCoroutine.Change(currentPosition, destination);
             })
-            .SetExitAction(() =>
+            .SetExitAction((args) =>
             {
                 UpdatePosition(X+moveX, Y+moveY);
             })
