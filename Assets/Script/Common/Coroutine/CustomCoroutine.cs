@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CustomCoroutine : MonoBehaviour
 {
-    [NonSerialized]public CommonEventArgs EventArgs;
+    [NonSerialized]public CoroutineEventArgs EventArgs;
     
     private bool _isOnCoroutine;
     
@@ -14,9 +14,9 @@ public class CustomCoroutine : MonoBehaviour
     private float _delayTime;
     private float _afterLastUpdateTime;
 
-    private Action<CommonEventArgs> _coroutineAction;
-    private Action<CommonEventArgs> _startAction;
-    private Action<CommonEventArgs> _exitAction;
+    private Action<CoroutineEventArgs> _coroutineAction;
+    private Action<CoroutineEventArgs> _startAction;
+    private Action<CoroutineEventArgs> _exitAction;
 
     private void Update()
     {
@@ -50,9 +50,11 @@ public class CustomCoroutine : MonoBehaviour
         _coroutineAction = null;
         _startAction = null;
         _exitAction = null;
+        EventArgs = new CoroutineEventArgs();
+        EventArgs.thisCoroutine = this;
     }
 
-    public void SetCoroutine(Action<CommonEventArgs> action, float operatingTime, float delayTime)
+    public void SetCoroutine(Action<CoroutineEventArgs> action, float operatingTime, float delayTime)
     {
         _operatingTime = operatingTime;
         _delayTime = delayTime;
@@ -67,21 +69,21 @@ public class CustomCoroutine : MonoBehaviour
         return this;
     }
 
-    public CustomCoroutine SetAction(Action<CommonEventArgs> action)
+    public CustomCoroutine SetAction(Action<CoroutineEventArgs> action)
     {
         _coroutineAction = action;
         
         return this;
     }
     
-    public CustomCoroutine SetStartAction(Action<CommonEventArgs> action)
+    public CustomCoroutine SetStartAction(Action<CoroutineEventArgs> action)
     {
         _startAction = action;
         
         return this;
     }
     
-    public CustomCoroutine SetExitAction(Action<CommonEventArgs> action)
+    public CustomCoroutine SetExitAction(Action<CoroutineEventArgs> action)
     {
         _exitAction = action;
         
