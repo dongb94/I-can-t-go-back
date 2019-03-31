@@ -82,4 +82,18 @@ public class BoardManager : Singleton<BoardManager>
     {
         Board[x][y].TileEffect(axis);
     }
+
+    #region <Debug>
+
+    void BoardSizeDebuger()
+    {
+        Debug.Log("X : "+BoardWight);
+        Debug.Log("Y : "+BoardHeight);
+        Debug.Log("x leng : "+Board.Length);
+        Debug.Log("y leng : "+Board[0].Length);
+        Debug.Log("player X : "+PlayerManager.GetInstance.X);
+        Debug.Log("player Y : "+PlayerManager.GetInstance.Y);
+    }
+
+    #endregion
 }
