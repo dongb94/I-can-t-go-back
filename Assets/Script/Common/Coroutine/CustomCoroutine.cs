@@ -39,10 +39,9 @@ public class CustomCoroutine : MonoBehaviour
 
         if (_operatingTime <= _elapsedTime)
         {
-            _exitAction?.Invoke(EventArgs);
             _isOnCoroutine = false;
             CoroutineFactory.GetInstance.PoolCoroutine(this);
-            _coroutineAction = null;
+            _exitAction?.Invoke(EventArgs);
         }
     }
 
