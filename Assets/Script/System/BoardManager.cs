@@ -80,8 +80,18 @@ public class BoardManager : Singleton<BoardManager>
     /// <param name="axis">tile position by player</param>
     public void CallEvent(int x, int y, Axis axis)
     {
+        if (IsOutOfBoard(x, y)) return;
         Board[x][y].TileEffect(axis);
     }
+
+    public bool IsOutOfBoard(int x, int y)
+    {
+        return (x >= BoardWight
+                 || x < 0
+                 || y >= BoardHeight
+                 || y < 0);
+    }
+
 
     #region <Debug>
 
