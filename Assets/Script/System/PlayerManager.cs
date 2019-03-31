@@ -15,7 +15,7 @@ public class PlayerManager : Singleton<PlayerManager>
     private void Awake()
     {
         _isHandle = false;
-        _speed = 0.5f;
+        _speed = 2f;
         //x = -99;
         //y = -99;
     }
@@ -78,6 +78,7 @@ public class PlayerManager : Singleton<PlayerManager>
 
         if (!BoardManager.GetInstance.CheckIsEmptyDirection(axis))
         {
+            //Debug.Log("Check");
             BoardManager.GetInstance.CallEvent(X+moveX, Y+moveY, axis);
             _isHandle = false;
             return;
@@ -99,6 +100,8 @@ public class PlayerManager : Singleton<PlayerManager>
             .SetExitAction((args) =>
             {
                 GetInstance.UpdatePosition(GetInstance.X+args.intFactor1, GetInstance.Y+args.intFactor2);
+                //Debug.Log("X : " + GetInstance.X+args.intFactor1 + ", Y : "+GetInstance.Y+args.intFactor2);
+                Move(axis);
             })
             .SetTrigger();
 
