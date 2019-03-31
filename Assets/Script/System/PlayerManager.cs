@@ -16,8 +16,8 @@ public class PlayerManager : Singleton<PlayerManager>
     {
         _isHandle = false;
         _speed = 0.5f;
-        x = -99;
-        y = -99;
+        //x = -99;
+        //y = -99;
     }
     private void Update()
     {
@@ -26,8 +26,10 @@ public class PlayerManager : Singleton<PlayerManager>
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
 
-        if (horizontal != 0) transform.position += Vector3.right * horizontal;
-        if (vertical != 0) transform.position += Vector3.up * vertical;
+        if (horizontal > 0) Move(Axis.Right);
+        else if (horizontal < 0) Move(Axis.Left);
+        if (vertical > 0) Move(Axis.Top);
+        else if (vertical < 0) Move(Axis.Bottom);
     }
 
     public void InitializePosition(int x, int y)
