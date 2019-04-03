@@ -16,10 +16,10 @@ public abstract class Tile : MonoBehaviour
     
     public enum TileColor
     {
-        None = 1 << 10,
-        Red = 1 << 11,
-        Blue = 1 << 12,
-        Green = 1 << 13
+        None,    //Original Color
+        Red,
+        Blue,
+        Green
     }
 
     public enum TileShape
@@ -54,5 +54,11 @@ public abstract class Tile : MonoBehaviour
         
     }
 
+    public void SetColor(TileColor color)
+    {
+        this.color = color;
+        tileSprite.
+    }
+    
     public abstract void TileEffect(Axis axis);
 }
