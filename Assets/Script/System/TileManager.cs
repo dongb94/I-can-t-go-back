@@ -36,7 +36,7 @@ public class TileManager : Singleton<TileManager>
         return InitializedPoolSize;
     }
 
-    public Tile MakeTile(int x, int y, Tile.TileShape shape)
+    public Tile GetTile(int x, int y, Tile.TileShape shape, Tile.TileColor color = Tile.TileColor.None)
     {
         if (BoardManager.GetInstance.BoardWight <= x || x < 0) return null;
         if (BoardManager.GetInstance.BoardHeight <= y || y < 0) return null;
@@ -54,6 +54,8 @@ public class TileManager : Singleton<TileManager>
 
         tile.x = x;
         tile.y = y;
+
+        tile.SetColor(color);
         
         BoardManager.GetInstance.InsertTile(tile);
 
