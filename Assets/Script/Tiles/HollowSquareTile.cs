@@ -1,7 +1,8 @@
-namespace Script.Tiles
+
+public class HollowSquareTile : Tile
 {
-    public class HollowSquareTile
+    public override void TileEffect(Axis axis)
     {
-        
+        Destroy(this);
     }
 }
