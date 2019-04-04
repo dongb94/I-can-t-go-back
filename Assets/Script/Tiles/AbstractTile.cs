@@ -1,10 +1,11 @@
 
+using System;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 public abstract class Tile : MonoBehaviour
 {
-    [FormerlySerializedAs("TileSprite")] public Sprite tileSprite;
+    [FormerlySerializedAs("TileSprite")] public SpriteRenderer tileSprite;
     
     [FormerlySerializedAs("Color")] public TileColor color;
     [FormerlySerializedAs("Shape")] public TileShape shape;
@@ -57,7 +58,24 @@ public abstract class Tile : MonoBehaviour
     public void SetColor(TileColor color)
     {
         this.color = color;
-        tileSprite.
+        
+        switch (color)
+        {
+            case TileColor.None:
+                tileSprite.color = Color.white;
+                break;
+            case TileColor.Red:
+                tileSprite.color = Color.red;
+                break;
+            case TileColor.Blue:
+                tileSprite.color = Color.blue;
+                break;
+            case TileColor.Green:
+                tileSprite.color = Color.green;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(color), color, null);
+        }
     }
     
     public abstract void TileEffect(Axis axis);
