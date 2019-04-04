@@ -14,7 +14,8 @@ public class TileManager : Singleton<TileManager>
     protected override void Initialize()
     {
         base.Initialize();
-
+        
+        _tilePool = new List<Queue<Tile>>();
         for (var i = 0; i < TileSet.Length; i++)
         {
             _tilePool.Add(new Queue<Tile>());            

@@ -10,9 +10,9 @@ public class PlayerManager : Singleton<PlayerManager>
     private float _speed; //  tile/s
 
     private int x, y;
-    
-    
-    private void Awake()
+
+
+    protected override void Initialize()
     {
         _isHandle = false;
         _speed = 2f;
