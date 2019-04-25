@@ -1,5 +1,6 @@
 
-using UnityEditor;
+using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 namespace Script.System.MapEditor
 {
@@ -7,7 +8,10 @@ namespace Script.System.MapEditor
     {
         private void Update()
         {
-            
+            if (Input.GetMouseButtonDown(0))
+            {
+                Debug.Log(Input.mousePosition);
+            }
         }
     }
 }
