@@ -46,6 +46,14 @@ public class BoardManager : Singleton<BoardManager>
         return new Vector3(xP,yP,0);
     }
 
+    public Grid2D ChangePositionToGrid(Vector3 position)
+    {
+        var grid = new Grid2D();
+        ///fff
+        /// 
+        return grid;
+    }
+
     public void InsertTile(Tile tile)
     {
         if(Board[tile.x][tile.y] != null)
@@ -106,4 +114,10 @@ public class BoardManager : Singleton<BoardManager>
     }
 
     #endregion
+}
+
+public struct Grid2D
+{
+    public int x;
+    public int y;
 }
