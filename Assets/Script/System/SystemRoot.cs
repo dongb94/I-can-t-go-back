@@ -1,7 +1,7 @@
 
     using UnityEngine;
 
-    public class SystemRoot : MonoBehaviour
+    public class SystemRoot : Singleton<SystemRoot>
     {
         private void Awake()
         {
