@@ -41,7 +41,7 @@ public class BoardManager : Singleton<BoardManager>
     public Vector3 ChangeGridToPosition(int x, int y)
     {
         var xP = CellSize * (x - BoardWight / 2f) + CellSize / 2f;
-        var yP = CellSize * (y - BoardHeight/2) + CellSize / 2f;
+        var yP = CellSize * (y - BoardHeight / 2f) + CellSize / 2f;
         
         return new Vector3(xP,yP,0);
     }
@@ -49,9 +49,26 @@ public class BoardManager : Singleton<BoardManager>
     public Grid2D ChangePositionToGrid(Vector3 position)
     {
         var grid = new Grid2D();
-        ///fff
-        /// 
-        return grid;
+        var x = (int)position.x;
+        var y = (int)position.y;
+        x -= Screen.width / 2;
+        y -= Screen.height / 2;
+        x /= CellSize;
+        y /= CellSize;
+
+
+        if (!(x > BoardWight / 2f) && !(x < -BoardWight / 2f) && !(y > BoardHeight / 2f) &&
+            !(y < -BoardHeight / 2f))
+        {
+            //grid.x = 
+            
+            return grid;
+        }
+        
+        grid.x = -1;
+        grid.y = -1;
+
+        return grid; // out of board
     }
 
     public void InsertTile(Tile tile)
@@ -116,6 +133,7 @@ public class BoardManager : Singleton<BoardManager>
     #endregion
 }
 
+//TODO Grid 위치 생각해볼것
 public struct Grid2D
 {
     public int x;
