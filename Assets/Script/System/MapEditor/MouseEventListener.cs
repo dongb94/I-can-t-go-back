@@ -10,7 +10,11 @@ namespace Script.System.MapEditor
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Debug.Log(Input.mousePosition);
+                var screenPosition = Input.mousePosition;
+                Debug.Log(screenPosition);
+                var mainCamera = FindObjectOfType<Camera>();
+                var localPosition = mainCamera.ScreenToWorldPoint(screenPosition);
+                Debug.Log(localPosition);
             }
         }
     }
