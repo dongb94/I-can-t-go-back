@@ -45,7 +45,16 @@ public class BoardManager : Singleton<BoardManager>
         
         return new Vector3(xP,yP,0);
     }
+    
+    public Vector3 ChangeGridToPosition(Grid2D grid)
+    {
+        var xP = CellSize * (grid.x - BoardWight / 2f) + CellSize / 2f;
+        var yP = CellSize * (grid.y - BoardHeight / 2f) + CellSize / 2f;
+        
+        return new Vector3(xP,yP,0);
+    }
 
+    // TODO 확인 해야됨
     public Grid2D ChangePositionToGrid(Vector3 position)
     {
         var grid = new Grid2D();
