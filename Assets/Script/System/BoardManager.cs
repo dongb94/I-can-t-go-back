@@ -63,13 +63,15 @@ public class BoardManager : Singleton<BoardManager>
         var y = position.y<0?(int)(position.y-1):(int)position.y;
 
         x /= CellSize;
-        y /= CellSize;      
+        y /= CellSize;
         
-        if (!(x >= BoardWight / 2) && !(x < -BoardWight / 2) && !(y >= BoardHeight / 2) &&
+        
+        
+        if (!(x >= (BoardWight + 1) / 2) && !(x < -BoardWight / 2) && !(y >= (BoardHeight + 1)/ 2) &&
             !(y < -BoardHeight / 2))
         {
             grid.x = x + BoardWight / 2;
-            grid.y = y + BoardHeight / 2; 
+            grid.y = y + BoardHeight / 2;
             
             return grid;
         }
