@@ -2,7 +2,9 @@
 using System;
 using Script.Common;
 using UnityEngine;
-
+/// <summary>
+/// TODO 카메라 사이즈(맵 크기에 따라), 맵 사이즈 설정, 
+/// </summary>
 public class StageInitializer : MonoBehaviour
 {
     public Location2D playerPosition;
