@@ -58,14 +58,15 @@ public class BoardManager : Singleton<BoardManager>
     public Grid2D ChangePositionToGrid(Vector3 position)
     {
         var grid = new Grid2D();
+
+        var px = position.x + (BoardWight % 2) * 0.5f;
+        var py = position.y + (BoardHeight % 2) * 0.5f;;
         
-        var x = position.x<0?(int)(position.x-1):(int)position.x;
-        var y = position.y<0?(int)(position.y-1):(int)position.y;
+        var x = position.x<0?(int)(px-1):(int)px;
+        var y = position.y<0?(int)(py-1):(int)py;
 
         x /= CellSize;
         y /= CellSize;
-        
-        
         
         if (!(x >= (BoardWight + 1) / 2) && !(x < -BoardWight / 2) && !(y >= (BoardHeight + 1)/ 2) &&
             !(y < -BoardHeight / 2))
