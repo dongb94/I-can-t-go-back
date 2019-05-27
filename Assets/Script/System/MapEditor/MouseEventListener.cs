@@ -9,6 +9,8 @@ namespace Script.System.MapEditor
         public GameObject ImageObject;
         public Sprite SampleImage;
 
+        private Grid2D focus;
+
         private void Awake()
         {
             ImageObject = GameObject.FindWithTag("Player");
@@ -17,18 +19,24 @@ namespace Script.System.MapEditor
 
         private void Update()
         {
-            //if (Input.GetMouseButtonDown(0))  
+            var screenPosition = Input.mousePosition;
+            var mainCamera = FindObjectOfType<Camera>();
+            var localPosition = mainCamera.ScreenToWorldPoint(screenPosition);
+            focus = BoardManager.GetInstance.ChangePositionToGrid(localPosition);
+
+            ImageObject.transform.position = BoardManager.GetInstance.ChangeGridToPosition(focus);
+            
+            if (Input.GetMouseButtonDown(0))  
             {
-                var screenPosition = Input.mousePosition;
-                Debug.Log(screenPosition);
-                var mainCamera = FindObjectOfType<Camera>();
-                var localPosition = mainCamera.ScreenToWorldPoint(screenPosition);
-                Debug.Log(localPosition);
-
-                var gridPosition = BoardManager.GetInstance.ChangePositionToGrid(localPosition);
-
-                ImageObject.transform.position = BoardManager.GetInstance.ChangeGridToPosition(gridPosition);
+                MouseClick();
             }
+        }
+
+        private void MouseClick()
+        {
+            if (focus.x == -1 || focus.y == -1) return;
+            TileManager.GetInstance.GetTile(focus.x, focus.y, TilePointer.GetInstance.currentTile,
+                TilePointer.GetInstance.currentColor);
         }
     }
 }
