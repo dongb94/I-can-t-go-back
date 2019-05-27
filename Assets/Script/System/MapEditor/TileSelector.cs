@@ -9,8 +9,7 @@ namespace Script.System.MapEditor
 
         public void SetTile()
         {
-            TilePointer.GetInstance.currentTile = Shape;
-            TilePointer.GetInstance.currentColor = Color;
+            TilePointer.GetInstance.SetSampleTile(Shape,Color);
         }
     }
 }
