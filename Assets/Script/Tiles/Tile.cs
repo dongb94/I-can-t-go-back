@@ -77,6 +77,27 @@ public abstract class Tile : MonoBehaviour
                 throw new ArgumentOutOfRangeException(nameof(color), color, null);
         }
     }
+
+    public static Color GetColor(TileColor color)
+    {
+        switch (color)
+        {
+            case TileColor.None:
+                return Color.white;
+                break;
+            case TileColor.Red:
+                return Color.red;
+                break;
+            case TileColor.Blue:
+                return Color.blue;
+                break;
+            case TileColor.Green:
+                return Color.green;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(color), color, null);
+        }
+    }
     
     public abstract void TileEffect(Axis axis);
 }
