@@ -26,7 +26,7 @@ namespace Script.System.MapEditor
 
             ImageObject.transform.position = BoardManager.GetInstance.ChangeGridToPosition(focus);
             
-            if (Input.GetMouseButtonDown(0))  
+            if (Input.GetMouseButton(0))
             {
                 MouseClick();
             }
