@@ -10,6 +10,8 @@ public class BoardManager : Singleton<BoardManager>
     public int BoardWight;
 
     public Tile[][] Board;
+
+    public LineRenderer BoardLine;
     
     protected override void Initialize()
     {
@@ -20,6 +22,10 @@ public class BoardManager : Singleton<BoardManager>
         {
             Board[i] = new Tile[BoardHeight];
         }
+
+        BoardLine = GetComponent<LineRenderer>();
+        
+        DrawLine();
     }
     
     #region <Properties>
@@ -50,6 +56,14 @@ public class BoardManager : Singleton<BoardManager>
     {
         var xP = CellSize * (grid.x - BoardWight / 2f) + CellSize / 2f;
         var yP = CellSize * (grid.y - BoardHeight / 2f) + CellSize / 2f;
+        
+        return new Vector3(xP,yP,0);
+    }
+    
+    public Vector3 ChangeGridToCrossPosition(int x, int y)
+    {
+        var xP = CellSize * (x - BoardWight / 2f);
+        var yP = CellSize * (y - BoardHeight / 2f);
         
         return new Vector3(xP,yP,0);
     }
@@ -127,6 +141,40 @@ public class BoardManager : Singleton<BoardManager>
                  || x < 0
                  || y >= BoardHeight
                  || y < 0);
+    }
+
+    public void DrawLine()
+    {
+        var index = 0;
+        BoardLine.startWidth = 0.02f;
+        BoardLine.endWidth = 0.02f;
+        BoardLine.positionCount = (BoardWight + BoardWight + 2) * 2;
+        for (var i = 0; i <= BoardWight; i++)
+        {
+            if (i % 2 == 0)
+            {
+                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(i,0));
+                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(i,BoardHeight));   
+            }
+            else
+            {
+                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(i,BoardHeight));
+                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(i,0));
+            }
+        }
+        for (var i = 0; i <= BoardHeight; i++)
+        {
+            if (i % 2 == 0)
+            {
+                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(BoardWight, i));
+                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(0,i));   
+            }
+            else
+            {   
+                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(0,i));
+                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(BoardWight,i));
+            }
+        }
     }
 
 
