@@ -12,7 +12,7 @@ namespace Tests
         [Test]
         public void BoardSizeTest1()
         {
-            Assert.AreEqual(BoardManager.GetInstance.BoardWight, BoardManager.GetInstance.Board.Length);
+            Assert.AreEqual(BoardManager.GetInstance.BoardWidth, BoardManager.GetInstance.Board.Length);
             Assert.AreEqual(BoardManager.GetInstance.BoardHeight, BoardManager.GetInstance.Board[0].Length);
         }
  
@@ -24,7 +24,7 @@ namespace Tests
             // Use the Assert class to test conditions.
             // Use yield to skip a frame.
             
-            Assert.AreEqual(BoardManager.GetInstance.BoardWight, BoardManager.GetInstance.Board.Length);
+            Assert.AreEqual(BoardManager.GetInstance.BoardWidth, BoardManager.GetInstance.Board.Length);
             Assert.AreEqual(BoardManager.GetInstance.BoardHeight, BoardManager.GetInstance.Board[0].Length);
             
             yield return null;

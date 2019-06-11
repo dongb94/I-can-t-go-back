@@ -1,13 +1,14 @@
 
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class BoardManager : Singleton<BoardManager>
 {
     private const int CellSize = 1;
 
     public int BoardHeight;
-    public int BoardWight;
+    public int BoardWidth;
 
     public Tile[][] Board;
 
@@ -17,8 +18,8 @@ public class BoardManager : Singleton<BoardManager>
     {
         base.Initialize();
         
-        Board = new Tile[BoardWight][];
-        for (var i = 0; i < BoardWight; i++)
+        Board = new Tile[BoardWidth][];
+        for (var i = 0; i < BoardWidth; i++)
         {
             Board[i] = new Tile[BoardHeight];
         }
@@ -30,7 +31,7 @@ public class BoardManager : Singleton<BoardManager>
     
     #region <Properties>
 
-    public bool IsRightEmpty => PlayerManager.GetInstance.X + 1 < BoardWight && Board[PlayerManager.GetInstance.X+1][PlayerManager.GetInstance.Y]==null;
+    public bool IsRightEmpty => PlayerManager.GetInstance.X + 1 < BoardWidth && Board[PlayerManager.GetInstance.X+1][PlayerManager.GetInstance.Y]==null;
     public bool IsLeftEmpty => PlayerManager.GetInstance.X > 0 && Board[PlayerManager.GetInstance.X-1][PlayerManager.GetInstance.Y]==null;
     public bool IsTopEmpty => PlayerManager.GetInstance.Y + 1 < BoardHeight && Board[PlayerManager.GetInstance.X][PlayerManager.GetInstance.Y+1]==null;
     public bool IsBottomEmpty => PlayerManager.GetInstance.Y > 0 && Board[PlayerManager.GetInstance.X][PlayerManager.GetInstance.Y-1]==null;
@@ -46,7 +47,7 @@ public class BoardManager : Singleton<BoardManager>
     /// <returns></returns>
     public Vector3 ChangeGridToPosition(int x, int y)
     {
-        var xP = CellSize * (x - BoardWight / 2f) + CellSize / 2f;
+        var xP = CellSize * (x - BoardWidth / 2f) + CellSize / 2f;
         var yP = CellSize * (y - BoardHeight / 2f) + CellSize / 2f;
         
         return new Vector3(xP,yP,0);
@@ -54,7 +55,7 @@ public class BoardManager : Singleton<BoardManager>
     
     public Vector3 ChangeGridToPosition(Grid2D grid)
     {
-        var xP = CellSize * (grid.x - BoardWight / 2f) + CellSize / 2f;
+        var xP = CellSize * (grid.x - BoardWidth / 2f) + CellSize / 2f;
         var yP = CellSize * (grid.y - BoardHeight / 2f) + CellSize / 2f;
         
         return new Vector3(xP,yP,0);
@@ -62,7 +63,7 @@ public class BoardManager : Singleton<BoardManager>
     
     public Vector3 ChangeGridToCrossPosition(int x, int y)
     {
-        var xP = CellSize * (x - BoardWight / 2f);
+        var xP = CellSize * (x - BoardWidth / 2f);
         var yP = CellSize * (y - BoardHeight / 2f);
         
         return new Vector3(xP,yP,0);
@@ -73,7 +74,7 @@ public class BoardManager : Singleton<BoardManager>
     {
         var grid = new Grid2D();
 
-        var px = position.x + (BoardWight % 2) * 0.5f;
+        var px = position.x + (BoardWidth % 2) * 0.5f;
         var py = position.y + (BoardHeight % 2) * 0.5f;;
         
         var x = position.x<0?(int)(px-1):(int)px;
@@ -82,10 +83,10 @@ public class BoardManager : Singleton<BoardManager>
         x /= CellSize;
         y /= CellSize;
         
-        if (!(x >= (BoardWight + 1) / 2) && !(x < -BoardWight / 2) && !(y >= (BoardHeight + 1)/ 2) &&
+        if (!(x >= (BoardWidth + 1) / 2) && !(x < -BoardWidth / 2) && !(y >= (BoardHeight + 1)/ 2) &&
             !(y < -BoardHeight / 2))
         {
-            grid.x = x + BoardWight / 2;
+            grid.x = x + BoardWidth / 2;
             grid.y = y + BoardHeight / 2;
             
             return grid;
@@ -137,7 +138,7 @@ public class BoardManager : Singleton<BoardManager>
 
     public bool IsOutOfBoard(int x, int y)
     {
-        return (x >= BoardWight
+        return (x >= BoardWidth
                  || x < 0
                  || y >= BoardHeight
                  || y < 0);
@@ -146,10 +147,10 @@ public class BoardManager : Singleton<BoardManager>
     public void DrawLine()
     {
         var index = 0;
-        BoardLine.startWidth = 0.002f * BoardWight;
-        BoardLine.endWidth = 0.002f * BoardWight;
-        BoardLine.positionCount = (BoardWight + BoardWight + 2) * 2;
-        for (var i = 0; i <= BoardWight; i++)
+        BoardLine.startWidth = 0.002f * BoardWidth;
+        BoardLine.endWidth = 0.002f * BoardWidth;
+        BoardLine.positionCount = (BoardWidth + BoardWidth + 2) * 2;
+        for (var i = 0; i <= BoardWidth; i++)
         {
             if (i % 2 == 0)
             {
@@ -166,13 +167,13 @@ public class BoardManager : Singleton<BoardManager>
         {
             if (i % 2 == 0)
             {
-                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(BoardWight, i));
+                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(BoardWidth, i));
                 BoardLine.SetPosition(index++, ChangeGridToCrossPosition(0,i));   
             }
             else
             {   
                 BoardLine.SetPosition(index++, ChangeGridToCrossPosition(0,i));
-                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(BoardWight,i));
+                BoardLine.SetPosition(index++, ChangeGridToCrossPosition(BoardWidth,i));
             }
         }
     }
@@ -182,7 +183,7 @@ public class BoardManager : Singleton<BoardManager>
 
     void BoardSizeDebuger()
     {
-        Debug.Log("X : "+BoardWight);
+        Debug.Log("X : "+BoardWidth);
         Debug.Log("Y : "+BoardHeight);
         Debug.Log("x leng : "+Board.Length);
         Debug.Log("y leng : "+Board[0].Length);

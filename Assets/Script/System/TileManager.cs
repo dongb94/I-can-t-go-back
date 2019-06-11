@@ -39,7 +39,7 @@ public class TileManager : Singleton<TileManager>
 
     public Tile GetTile(int x, int y, Tile.TileShape shape, Tile.TileColor color = Tile.TileColor.None)
     {
-        if (BoardManager.GetInstance.BoardWight <= x || x < 0) return null;
+        if (BoardManager.GetInstance.BoardWidth <= x || x < 0) return null;
         if (BoardManager.GetInstance.BoardHeight <= y || y < 0) return null;
         
         var pool = _tilePool[(int) shape];
