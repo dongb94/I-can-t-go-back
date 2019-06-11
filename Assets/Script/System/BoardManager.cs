@@ -146,8 +146,8 @@ public class BoardManager : Singleton<BoardManager>
     public void DrawLine()
     {
         var index = 0;
-        BoardLine.startWidth = 0.02f;
-        BoardLine.endWidth = 0.02f;
+        BoardLine.startWidth = 0.002f * BoardWight;
+        BoardLine.endWidth = 0.002f * BoardWight;
         BoardLine.positionCount = (BoardWight + BoardWight + 2) * 2;
         for (var i = 0; i <= BoardWight; i++)
         {
