@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoardManager : Singleton<BoardManager>
 {
-    public int CellSize;
+    private const int CellSize = 1;
 
     public int BoardHeight;
     public int BoardWight;
