@@ -149,7 +149,7 @@ public class BoardManager : Singleton<BoardManager>
         var index = 0;
         BoardLine.startWidth = 0.002f * BoardWidth;
         BoardLine.endWidth = 0.002f * BoardWidth;
-        BoardLine.positionCount = (BoardWidth + BoardWidth + 2) * 2;
+        BoardLine.positionCount = (BoardWidth + BoardHeight + 2) * 2;
         for (var i = 0; i <= BoardWidth; i++)
         {
             if (i % 2 == 0)
