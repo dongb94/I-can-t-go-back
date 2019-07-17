@@ -9,11 +9,12 @@ namespace Script.System.MapEditor
     {
         private BoardManager board;
         private StringBuilder mapFile;
-        private string path;
+        private string directoryPath;
 
         private void Awake()
         {
-            path = Application.persistentDataPath + "/MapData/";
+            // user/appdata/locallow/
+            directoryPath = Application.persistentDataPath + "/MapData/";
             board = BoardManager.GetInstance;
             mapFile = new StringBuilder();
         }
@@ -30,12 +31,15 @@ namespace Script.System.MapEditor
                 for (var j = 0; j < height; j++)
                 {
                     var tile = board.Board[i][j];
+                    if(tile == null) continue;
                     TileToString(tile);
                     mapFile.Append("|");
                 }
             }
+
+            if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
             
-            var writer = File.CreateText(path+fileName+".txt");
+            var writer = File.CreateText(directoryPath+fileName+".txt");
             writer.Write(mapFile.ToString());
             writer.Flush();
             writer.Close();
